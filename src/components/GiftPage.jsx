@@ -2,8 +2,9 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
+import { Heart } from "lucide-react"
 
-export default function GiftPage() {
+export default function GiftPage({ setCurrentPage }) {
   const [giftOpened, setGiftOpened] = useState(false)
   const [showSurprise, setShowSurprise] = useState(false)
 
@@ -47,8 +48,8 @@ export default function GiftPage() {
 
       <motion.h2
         layout
-        initial={{ opacity: 0, }}
-        animate={{ opacity: 1, }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
         className="text-3xl text-pink-300 mb-16"
       >
@@ -87,7 +88,7 @@ export default function GiftPage() {
                 }}
                 transition={{
                   duration: 2,
-                  repeat: Infinity,
+                  repeat: Number.POSITIVE_INFINITY,
                   ease: "easeInOut",
                 }}
               />
@@ -105,7 +106,7 @@ export default function GiftPage() {
                   duration: 2,
                   repeat: Number.POSITIVE_INFINITY,
                   ease: "easeInOut",
-                  delay: 2
+                  delay: 2,
                 }}
                 className="text-pink-200 mt-6 text-xl relative z-10"
               >
@@ -187,7 +188,7 @@ export default function GiftPage() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className="space-y-8 max-w-lg"
+                    className="space-y-8 max-w-lg flex flex-col items-center"
                   >
                     <motion.p
                       initial={{ opacity: 0, y: 15 }}
@@ -203,7 +204,7 @@ export default function GiftPage() {
                       transition={{ duration: 0.8, delay: 0.6 }}
                       className="text-lg text-purple-200 leading-relaxed"
                     >
-                      Just like my love for you. I promise to cherish you every single day, and never take your
+                      Just like me never gonna to leave youh... I promise to cherish you every single day, and never take your
                       beautiful heart for granted again.💖
                     </motion.p>
                     <motion.p
@@ -214,6 +215,35 @@ export default function GiftPage() {
                     >
                       You mean everything to me💕✨
                     </motion.p>
+
+                    {/* NEW BUTTON ADDED HERE */}
+                    <motion.button
+                      onClick={() => setCurrentPage("final")}
+                      className="mt-6 px-8 py-3 bg-gradient-to-r from-pink-500/30 to-purple-500/30 backdrop-blur-sm border border-pink-300/40 rounded-full text-pink-200 text-lg hover:from-pink-500/40 hover:to-purple-500/40 transition-all duration-500 shadow-xl shadow-pink-500/30 flex gap-3 relative overflow-hidden"
+                      whileHover={{
+                        scale: 1.02,
+                        boxShadow: "0 0 30px rgba(236, 72, 153, 0.4)",
+                        y: -2,
+                      }}
+                      whileTap={{ scale: 0.98 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1.5, duration: 0.8 }}
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                        animate={{
+                          x: ["-100%", "100%"],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Number.POSITIVE_INFINITY,
+                          repeatDelay: 4,
+                        }}
+                      />
+                      <Heart size={20} className="text-pink-200 relative z-10" />
+                      <span className="relative z-10">One last thing...</span>
+                    </motion.button>
                   </motion.div>
                 )}
               </AnimatePresence>

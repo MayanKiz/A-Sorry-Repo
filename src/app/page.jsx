@@ -9,6 +9,7 @@ import ApologyPage from "@/components/ApologyPage"
 import LetterPage from "@/components/LetterPage"
 import HugPage from "@/components/HugPage"
 import GiftPage from "@/components/GiftPage"
+import LastPage from "@/components/last" // 1. ADDED THIS IMPORT
 import MusicPlayer from "@/components/MusicPlayer"
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
     letter: LetterPage,
     hug: HugPage,
     gift: GiftPage,
+    final: LastPage, // 2. ADDED THIS ROUTE
   }
 
   const CurrentComponent = pages[currentPage]
