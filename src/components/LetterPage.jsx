@@ -48,7 +48,7 @@ export default function LetterPage({ setCurrentPage }) {
                 <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-pink-50 to-purple-50">
                   {/* Save the photos with name like 1.jpg, 2.jpg ... and change the src to this - /images/${i}.jpg */}
                   <img
-                    src={`/images/1.jpg`}
+                    src={`/images/${i}.jpg`}
                     alt={`Beautiful memory ${i}`}
                     className="w-full h-36 object-cover"
                   />

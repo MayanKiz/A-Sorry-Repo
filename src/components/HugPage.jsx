@@ -51,7 +51,7 @@ export default function HugPage({ setCurrentPage }) {
           repeat: Number.POSITIVE_INFINITY,
         }}
       >
-        🤗
+          
       </motion.div>
 
       <motion.div
@@ -80,7 +80,7 @@ export default function HugPage({ setCurrentPage }) {
             repeat: Number.POSITIVE_INFINITY,
           }}
         >
-          💖
+          
         </motion.div>
       </motion.div>
 
@@ -104,7 +104,7 @@ export default function HugPage({ setCurrentPage }) {
           transition={{ duration: 0.8, delay: 1.1 }}
           className="text-xl text-purple-200 leading-relaxed"
         >
-          Just your arms around me, that’s all I want.💕
+          Just you around me,as a friend...... that’s all I want...
         </motion.p>
       </motion.div>
 
@@ -135,7 +135,7 @@ export default function HugPage({ setCurrentPage }) {
           }}
         />
         <Heart size={24} className="text-pink-200 relative z-10" />
-        <span className="relative z-10">Send a hug</span>
+        <span className="relative z-10">One Last Thing</span>
       </motion.button>
 
       <AnimatePresence>
