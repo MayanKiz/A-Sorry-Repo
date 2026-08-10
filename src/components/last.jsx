@@ -10,8 +10,8 @@ export default function LastPage({ setMusicPlaying }) {
 
   // Hardcoded array with duplicates removed (based on matching file sizes)
   const voiceNotes = [
-    10000, 10001, 10014, 10012, 10007, 
-    10008, 10009, 10010, 10011, 10002, 10005
+    10000, 10014, 10012, 10007, 
+      10010, 10011, 10005
   ]
 
   const handlePlay = (currentIndex) => {
