@@ -91,7 +91,7 @@ export default function LastPage({ setMusicPlaying }) {
           transition={{ duration: 1, delay: 0.5 }}
           className="text-cyan-50/80 mb-6 text-sm"
         >
-          I left a few things I needed to say. Take your time with them.
+          I left a few things I needed to say... Take your time with them.
         </motion.p>
 
         {/* Scrollable Audio List */}
