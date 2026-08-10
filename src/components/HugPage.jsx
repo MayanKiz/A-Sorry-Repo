@@ -63,7 +63,7 @@ export default function HugPage({ setCurrentPage }) {
         {/* Cute aura around teddy */}
         <div className="absolute inset-0 bg-gradient-to-r from-pink-400/25 to-red-400/25 rounded-full blur-2xl scale-110"></div>
         <img
-          src="/gifs/teddy-hug.gif"
+          src="/gifs/tkthao219-peach.gif"
           alt="Teddy with open arms"
           className=" mx-auto rounded-2xl relative z-10"
         />
@@ -104,7 +104,7 @@ export default function HugPage({ setCurrentPage }) {
           transition={{ duration: 0.8, delay: 1.1 }}
           className="text-xl text-purple-200 leading-relaxed"
         >
-          Just you around me,as a friend...... that’s all I want...
+          Just yuuhh...as a friend... that’s all I want...
         </motion.p>
       </motion.div>
 
