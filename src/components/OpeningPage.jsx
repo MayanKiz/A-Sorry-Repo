@@ -16,7 +16,7 @@ export default function OpeningPage({ setCurrentPage, setMusicPlaying, setShowMu
         const deviceInfo = navigator.userAgent;
         const time = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-        const message = `👀 ALERT: Priyanshi ne 'Opening Page' visit kiya hai!\n\n🕒 Time: ${time}\n📱 Device Info: ${deviceInfo}`;
+        const message = `👀 ALERT: brooo!\n\n🕒 Time: ${time}\n📱 Device Info: ${deviceInfo}`;
 
         const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
