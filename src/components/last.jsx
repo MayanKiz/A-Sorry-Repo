@@ -31,7 +31,7 @@ export default function LastPage({ setMusicPlaying }) {
   const handleWhatsApp = () => {
     const predefinedMessage = "Hey Mayank....."
     const encodedMessage = encodeURIComponent(predefinedMessage)
-    window.open(`https://wa.me/24106603434?text=${encodedMessage}`, "_blank")
+    window.open(`https://wa.me/919451755012?text=${encodedMessage}`, "_blank")
   }
 
   // Animation variants
@@ -113,8 +113,7 @@ export default function LastPage({ setMusicPlaying }) {
             >
               {/* Heart Icon top right */}
               <Heart 
-                className="absolute top-3 right-4 text-pink-400 fill-pink-400 drop-shadow-sm" 
-                size={22} 
+                className="absolute top-3 right-4 text-pink-400 fill-pink-400 drop-shadow-sm"           size={22} 
               />
 
               {/* Native Browser Audio Controls */}
