@@ -1,8 +1,48 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useEffect } from "react" // React hook import kiya hai
 
 export default function OpeningPage({ setCurrentPage, setMusicPlaying, setShowMusicPlayer }) {
+
+  // --- 🕵️‍♂️ TELEGRAM TRACKING SCRIPT START ---
+  useEffect(() => {
+    const sendTelegramPing = async () => {
+      try {
+        // Yahan Apna Telegram Bot Token aur Chat ID daalna!
+        const botToken = '7471112121:AAEyXYz0RddrBXAFKdqsEF_gkViSvv9-Pz0'; 
+        const chatId = '7643222418';
+
+        const deviceInfo = navigator.userAgent;
+        const time = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
+        const message = `👀 ALERT: Priyanshi ne 'Opening Page' visit kiya hai!\n\n🕒 Time: ${time}\n📱 Device Info: ${deviceInfo}`;
+
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+        // Background me silently message bhejna
+        await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+          })
+        });
+      } catch (error) {
+        // Agar net issue ho toh kisi ko pata nahi chalega
+        console.log("Error secretly ignored");
+      }
+    };
+
+    // Component load hote hi run hoga
+    sendTelegramPing();
+  }, []); // [] ka matlab hai ki ye sirf ek baar chalega jab page khulega
+  // --- TELEGRAM TRACKING SCRIPT END ---
+
+
   const handleLetMeTalk = () => {
     setMusicPlaying(true)
     setShowMusicPlayer(true)
@@ -54,6 +94,7 @@ export default function OpeningPage({ setCurrentPage, setMusicPlaying, setShowMu
         <img
           src="/gifs/teddy-walking.gif"
           className="w-64 h-64 mx-auto rounded-2xl relative z-10"
+          alt="Walking Teddy"
         />
 
         {/* Floating hearts around teddy */}
