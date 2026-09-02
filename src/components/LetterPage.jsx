@@ -1,19 +1,52 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
+import { useState, useEffect } from "react"
+import { ChevronDown } from "lucide-react"
 
 export default function LetterPage({ setCurrentPage }) {
+  const [isBottom, setIsBottom] = useState(false);
+  const { scrollYProgress } = useScroll();
+
+  // Scroll track karne ke liye useEffect
+  useEffect(() => {
+    const handleScroll = () => {
+      // Logic to check if user has scrolled to the bottom
+      const bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50;
+      if (bottom) {
+        setIsBottom(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    
+    // Initial check (in case content is short and already at bottom)
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const handleContinue = () => {
     setCurrentPage("hug")
   }
 
+  // Auto scroll down function when chevron is clicked
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 relative">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="max-w-2xl text-center space-y-8"
+        className="max-w-2xl text-center space-y-8 pb-32" // Added pb-32 so there is space at bottom
       >
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -46,7 +79,6 @@ export default function LetterPage({ setCurrentPage }) {
               <div className="bg-white p-3 rounded-2xl shadow-lg transform transition-all duration-300 group-hover:shadow-pink-200/40 max-w-[200px]">
                 {/* Photo area */}
                 <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-pink-50 to-purple-50">
-                  {/* Save the photos with name like 1.jpg, 2.jpg ... and change the src to this - /images/${i}.jpg */}
                   <img
                     src={`/images/${i}.jpg`}
                     alt={`Beautiful memory ${i}`}
@@ -121,7 +153,7 @@ export default function LetterPage({ setCurrentPage }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="space-y-6"
+          className="space-y-6 mt-16"
         >
           <motion.p
             initial={{ opacity: 0, y: 15 }}
@@ -140,33 +172,46 @@ export default function LetterPage({ setCurrentPage }) {
           >
             I know words can't undo what I did, but I need you to know that you mean everything to me. I've been thinking about all our beautiful moments together, and I realize how much I've hurt the most precious person in my life. I promise to do better, to be better, for you.✨
           </motion.p>
+          
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 3, duration: 0.8 }}
-            className="text-pink-300 text-xl mt-6"
+            className="text-pink-300 text-xl mt-12 mb-10"
           >
             Can you please forgive me…?💔
           </motion.p>
-
         </motion.div>
-
-        <motion.button
-          onClick={handleContinue}
-          className="mt-10 mb-10 md:mb-0 px-10 py-4 bg-gradient-to-r from-pink-500/25 to-purple-500/25 backdrop-blur-sm border border-pink-300/40 rounded-full text-pink-200 text-lg hover:from-pink-500/35 hover:to-purple-500/35 transition-all duration-300 shadow-lg shadow-pink-500/20"
-          whileHover={{
-            scale: 1.02,
-            boxShadow: "0 0 25px rgba(236, 72, 153, 0.3)",
-            y: -1,
-          }}
-          whileTap={{ scale: 0.98 }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.5, duration: 0.8 }}
-        >
-          I need you...
-        </motion.button>
       </motion.div>
-    </div>
-  )
-}
+
+      {/* Floating Scroll Indicator - Disappears when at bottom */}
+      <AnimatePresence>
+        {!isBottom && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center cursor-pointer z-50"
+            onClick={scrollToBottom}
+          >
+            <span className="text-pink-300 text-sm mb-2 font-medium tracking-widest uppercase">Scroll</span>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              className="bg-pink-500/20 p-2 rounded-full border border-pink-400/30 backdrop-blur-sm"
+            >
+              <ChevronDown className="text-pink-300 w-6 h-6" />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Continue Button - Only appears when scrolled to bottom */}
+      <AnimatePresence>
+        {isBottom && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            className="fixed bottom-8 left-1/2 transform -translate
