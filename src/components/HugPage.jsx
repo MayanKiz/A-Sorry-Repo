@@ -243,7 +243,7 @@ export default function HugPage({ setCurrentPage }) {
           >
             <div className="w-full max-w-md rounded-3xl border border-pink-300/30 bg-gray-900/95 px-6 py-8 shadow-2xl shadow-pink-500/20 relative">
               <img
-                src="/gifs/snnana.gif"
+                src="/gifs/rabbits.gif"
                 alt="Sad cute animal"
                 className="mx-auto mb-5 w-40 rounded-2xl"
               />
