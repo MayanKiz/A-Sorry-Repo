@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
 import { Heart } from "lucide-react"
+import confetti from "canvas-confetti" // NAYA IMPORT ✨
 
 export default function HugPage({ setCurrentPage }) {
   const [hearts, setHearts] = useState([])
@@ -23,13 +24,50 @@ export default function HugPage({ setCurrentPage }) {
   const handleForgiveYes = () => {
     sendAnswer("Forgiveness answer: Yes")
     setShowFriendQuestion(true) // Moves to Step 2
+    
+    // Cute Single Confetti Burst 🎉
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#f472b6', '#c084fc', '#fb7185', '#ffffff'], // Pink & Purple shades
+      zIndex: 1000
+    })
   }
 
   // Step 2: When she clicks Yes for Friendship
   const handleFriendYes = () => {
     sendAnswer("Friend question answer: Yes")
     setShowHearts(true)
-    
+
+    // MASSIVE Celebration: Side Cannons for 3 seconds! 🎊
+    const duration = 3 * 1000;
+    const animationEnd = Date.now() + duration;
+    const colors = ['#f472b6', '#c084fc', '#fb7185', '#ffffff'];
+
+    (function frame() {
+      confetti({
+        particleCount: 5,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0, y: 0.8 },
+        colors: colors,
+        zIndex: 1000
+      });
+      confetti({
+        particleCount: 5,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1, y: 0.8 },
+        colors: colors,
+        zIndex: 1000
+      });
+
+      if (Date.now() < animationEnd) {
+        requestAnimationFrame(frame);
+      }
+    }());
+
     // Generate flying hearts
     const newHearts = []
     const screenWidth = typeof window !== "undefined" ? window.innerWidth : 800
@@ -51,7 +89,7 @@ export default function HugPage({ setCurrentPage }) {
     }
     setHearts(newHearts)
 
-    // Move to next page after animation
+    // Move to next page after animations are done
     setTimeout(() => {
       setCurrentPage("gift")
     }, 4500)
@@ -66,7 +104,7 @@ export default function HugPage({ setCurrentPage }) {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center relative overflow-hidden pb-10">
-      
+
       {/* Cute GIF Section */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
@@ -122,7 +160,7 @@ export default function HugPage({ setCurrentPage }) {
       </div>
 
       {/* Buttons Section */}
-      <div className="flex flex-col items-center mt-6">
+      <div className="flex flex-col items-center mt-6 z-20 relative">
         <motion.button
           onClick={() => (showFriendQuestion ? handleFriendYes() : handleForgiveYes())}
           className="px-10 py-4 bg-gradient-to-r from-pink-500/30 to-red-500/30 backdrop-blur-sm border border-pink-300/40 rounded-full text-pink-200 text-xl hover:from-pink-500/40 hover:to-red-500/40 transition-all duration-500 shadow-xl shadow-pink-500/30 flex gap-4 relative overflow-hidden"
