@@ -64,7 +64,7 @@ export default function ApologyPage({ setCurrentPage }) {
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
       >
-        Read my letter...
+        Next...
       </motion.button>
     </div>
   )
