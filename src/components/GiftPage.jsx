@@ -16,7 +16,7 @@ export default function GiftPage({ setCurrentPage }) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center relative overflow-hidden pb-10">
       {/* Floating cute elements */}
       <motion.div
         className="absolute top-40 md:top-20 left-8 text-2xl"
@@ -46,15 +46,18 @@ export default function GiftPage({ setCurrentPage }) {
         ✨
       </motion.div>
 
-      <motion.h2
-        layout
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="text-3xl text-pink-300 mb-16"
-      >
-        I have something special for you... 💝
-      </motion.h2>
+      {/* Main Title - Hides when gift is opened for cleaner UI */}
+      <AnimatePresence>
+        {!giftOpened && (
+          <motion.h2
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl text-pink-300 mb-16 mt-10 md:mt-0"
+          >
+            I have something special for you... 💝
+          </motion.h2>
+        )}
+      </AnimatePresence>
 
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
@@ -110,7 +113,7 @@ export default function GiftPage({ setCurrentPage }) {
                 }}
                 className="text-pink-200 mt-6 text-xl relative z-10"
               >
-                Click to open!🎁✨
+                Click to open! 🎁✨
               </motion.p>
 
               {/* Floating sparkles around gift */}
@@ -134,7 +137,7 @@ export default function GiftPage({ setCurrentPage }) {
               initial={{ scale: 0, opacity: 0, y: 50 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="space-y-12"
+              className="space-y-10"
             >
               <motion.div
                 initial={{ y: 50, opacity: 0, scale: 0.8 }}
@@ -188,15 +191,15 @@ export default function GiftPage({ setCurrentPage }) {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className="space-y-8 max-w-lg flex flex-col items-center"
+                    className="space-y-6 max-w-lg flex flex-col items-center mx-auto"
                   >
                     <motion.p
                       initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.3 }}
-                      className="text-2xl text-pink-300 leading-relaxed"
+                      className="text-2xl text-pink-300 leading-relaxed font-medium"
                     >
-                      This flower will never wilt...🌹
+                      This flower will never wilt... 🌹
                     </motion.p>
                     <motion.p
                       initial={{ opacity: 0, y: 15 }}
@@ -204,8 +207,7 @@ export default function GiftPage({ setCurrentPage }) {
                       transition={{ duration: 0.8, delay: 0.6 }}
                       className="text-lg text-purple-200 leading-relaxed"
                     >
-                      Just like me never gonna to leave youh... I promise to cherish you every single day, and never take your
-                      beautiful heart for granted again.💖
+                      Just like I'm never gonna leave you... I promise to cherish you every single day, and never take your beautiful heart for granted again. 💖
                     </motion.p>
                     <motion.p
                       initial={{ opacity: 0, y: 15 }}
@@ -213,13 +215,22 @@ export default function GiftPage({ setCurrentPage }) {
                       transition={{ duration: 0.8, delay: 0.9 }}
                       className="text-xl text-pink-200"
                     >
-                      You mean everything to me💕✨
+                      You mean everything to me 💕✨
+                    </motion.p>
+                    
+                    {/* FIXED: Changed to Thank You instead of asking for forgiveness again */}
+                    <motion.p
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 1.2 }}
+                      className="text-2xl text-pink-300 font-medium mt-4"
+                    >
+                      Thank you for giving me another chance... 🥺💖
                     </motion.p>
 
-                    {/* NEW BUTTON ADDED HERE */}
                     <motion.button
                       onClick={() => setCurrentPage("final")}
-                      className="mt-6 px-8 py-3 bg-gradient-to-r from-pink-500/30 to-purple-500/30 backdrop-blur-sm border border-pink-300/40 rounded-full text-pink-200 text-lg hover:from-pink-500/40 hover:to-purple-500/40 transition-all duration-500 shadow-xl shadow-pink-500/30 flex gap-3 relative overflow-hidden"
+                      className="mt-8 px-8 py-3 bg-gradient-to-r from-pink-500/30 to-purple-500/30 backdrop-blur-sm border border-pink-300/40 rounded-full text-pink-200 text-lg hover:from-pink-500/40 hover:to-purple-500/40 transition-all duration-500 shadow-xl shadow-pink-500/30 flex gap-3 relative overflow-hidden"
                       whileHover={{
                         scale: 1.02,
                         boxShadow: "0 0 30px rgba(236, 72, 153, 0.4)",
@@ -254,37 +265,24 @@ export default function GiftPage({ setCurrentPage }) {
 
       {/* Enhanced floating animation with more variety */}
       {giftOpened && (
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="fixed inset-0 pointer-events-none z-0">
           {[...Array(15)].map((_, i) => (
             <motion.div
               key={i}
-              initial={{
-                x: Math.random() * (typeof window !== "undefined" ? window.innerWidth : 800),
-                y: (typeof window !== "undefined" ? window.innerHeight : 600) + 50,
-                opacity: 0,
-                scale: 0,
-              }}
+              className="absolute w-1 h-1 bg-pink-300 rounded-full"
+              initial={{ opacity: 0, scale: 0 }}
               animate={{
-                y: -150,
-                opacity: [0, 0.8, 0.8, 0],
-                scale: [0, 1.5, 1, 0.5],
-                rotate: 360,
-                x: Math.random() * (typeof window !== "undefined" ? window.innerWidth : 800),
+                opacity: [0, 1, 0],
+                scale: [0, 1, 0],
+                x: [0, Math.random() * 100 - 50],
+                y: [0, Math.random() * 100 - 50],
               }}
               transition={{
-                duration: 5,
-                delay: Math.random() * 3,
+                duration: 3,
                 repeat: Number.POSITIVE_INFINITY,
-                repeatDelay: Math.random() * 6,
-                ease: [0.25, 0.46, 0.45, 0.94],
+                delay: i * 0.2,
               }}
-              className="absolute text-2xl z-40"
-              style={{
-                filter: "drop-shadow(0 0 10px rgba(236, 72, 153, 0.6))",
-              }}
-            >
-              {["💖", "🌸", "💕", "🌺", "💝", "🌹", "✨"][Math.floor(Math.random() * 7)]}
-            </motion.div>
+            />
           ))}
         </div>
       )}
