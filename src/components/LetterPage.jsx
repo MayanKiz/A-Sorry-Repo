@@ -214,4 +214,23 @@ export default function LetterPage({ setCurrentPage }) {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            className="fixed bottom-8 left-1/2 transform -translate
+            className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full flex justify-center"
+          >
+            <motion.button
+              onClick={handleContinue}
+              className="px-10 py-4 bg-gradient-to-r from-pink-500/40 to-purple-500/40 backdrop-blur-md border border-pink-300/60 rounded-full text-pink-100 text-lg hover:from-pink-500/60 hover:to-purple-500/60 transition-all duration-300 shadow-[0_0_20px_rgba(236,72,153,0.3)]"
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 30px rgba(236, 72, 153, 0.5)",
+                y: -2,
+              }}
+              whileTap={{ scale: 0.95 }}
+            >
+              I need you...
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
