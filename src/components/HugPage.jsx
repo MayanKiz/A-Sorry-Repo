@@ -76,7 +76,7 @@ export default function HugPage({ setCurrentPage }) {
       >
         <div className="absolute inset-0 bg-gradient-to-r from-pink-400/25 to-red-400/25 rounded-full blur-2xl scale-110"></div>
         <img
-          src="/gifs/rabbits.gif"
+          src="/gifs/snnana.gif"
           alt="Emotional cute animals"
           className="mx-auto rounded-2xl relative z-10 w-64 md:w-72"
         />
@@ -179,7 +179,7 @@ export default function HugPage({ setCurrentPage }) {
           >
             <div className="w-full max-w-md rounded-3xl border border-pink-300/30 bg-gray-900/95 px-6 py-8 shadow-2xl shadow-pink-500/20 relative">
               <img
-                src="/gifs/rabbits.gif"
+                src="/gifs/snnana.gif"
                 alt="Sad cute animal"
                 className="mx-auto mb-5 w-40 rounded-2xl"
               />
