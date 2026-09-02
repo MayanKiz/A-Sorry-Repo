@@ -3,10 +3,10 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
 import { Heart } from "lucide-react"
-import confetti from "canvas-confetti" // NAYA IMPORT ✨
 
 export default function HugPage({ setCurrentPage }) {
   const [hearts, setHearts] = useState([])
+  const [confetti, setConfetti] = useState([])
   const [showHearts, setShowHearts] = useState(false)
   const [showForgiveness, setShowForgiveness] = useState(false)
   const [showFriendQuestion, setShowFriendQuestion] = useState(false)
@@ -20,53 +20,65 @@ export default function HugPage({ setCurrentPage }) {
     }).catch(() => {})
   }
 
+  // Custom Confetti Generator (No npm install required!)
+  const triggerConfetti = (type) => {
+    const newConfetti = []
+    const colors = ['bg-pink-400', 'bg-purple-400', 'bg-white', 'bg-red-400', 'bg-rose-300']
+    const screenW = typeof window !== 'undefined' ? window.innerWidth : 400
+
+    if (type === 'small') {
+      // Step 1: Cute center burst for Forgiveness
+      for (let i = 0; i < 40; i++) {
+        newConfetti.push({
+          id: `small-${Date.now()}-${i}`,
+          originX: 0,
+          originY: 0,
+          targetX: (Math.random() - 0.5) * 300,
+          targetY: Math.random() * 300 + 100,
+          rotation: Math.random() * 720,
+          scale: Math.random() * 0.6 + 0.4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          shape: Math.random() > 0.5 ? 'rounded-full' : 'rounded-sm',
+          duration: 2 + Math.random(),
+          delay: Math.random() * 0.2
+        })
+      }
+    } else {
+      // Step 2: Massive Side Cannons for Friendship
+      for (let i = 0; i < 80; i++) {
+        const isLeft = i % 2 === 0
+        newConfetti.push({
+          id: `massive-${Date.now()}-${i}`,
+          originX: isLeft ? -(screenW / 2) + 50 : (screenW / 2) - 50,
+          originY: 200,
+          targetX: isLeft ? Math.random() * 300 : -(Math.random() * 300),
+          targetY: Math.random() * 500 + 200,
+          rotation: Math.random() * 720,
+          scale: Math.random() * 0.8 + 0.4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          shape: Math.random() > 0.5 ? 'rounded-full' : 'rounded-sm',
+          duration: 3 + Math.random() * 2,
+          delay: Math.random() * 1.5 // Staggered for continuous effect
+        })
+      }
+    }
+    setConfetti(newConfetti)
+    // Clear confetti after animation ends
+    setTimeout(() => setConfetti([]), type === 'small' ? 3000 : 5000)
+  }
+
   // Step 1: When she clicks Yes for Forgiveness
   const handleForgiveYes = () => {
     sendAnswer("Forgiveness answer: Yes")
+    triggerConfetti('small') // Fires small confetti
     setShowFriendQuestion(true) // Moves to Step 2
-    
-    // Cute Single Confetti Burst 🎉
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ['#f472b6', '#c084fc', '#fb7185', '#ffffff'], // Pink & Purple shades
-      zIndex: 1000
-    })
   }
 
   // Step 2: When she clicks Yes for Friendship
   const handleFriendYes = () => {
     sendAnswer("Friend question answer: Yes")
     setShowHearts(true)
-
-    // MASSIVE Celebration: Side Cannons for 3 seconds! 🎊
-    const duration = 3 * 1000;
-    const animationEnd = Date.now() + duration;
-    const colors = ['#f472b6', '#c084fc', '#fb7185', '#ffffff'];
-
-    (function frame() {
-      confetti({
-        particleCount: 5,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0, y: 0.8 },
-        colors: colors,
-        zIndex: 1000
-      });
-      confetti({
-        particleCount: 5,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1, y: 0.8 },
-        colors: colors,
-        zIndex: 1000
-      });
-
-      if (Date.now() < animationEnd) {
-        requestAnimationFrame(frame);
-      }
-    }());
+    triggerConfetti('massive') // Fires massive side cannons
 
     // Generate flying hearts
     const newHearts = []
@@ -89,7 +101,7 @@ export default function HugPage({ setCurrentPage }) {
     }
     setHearts(newHearts)
 
-    // Move to next page after animations are done
+    // Move to next page after animation
     setTimeout(() => {
       setCurrentPage("gift")
     }, 4500)
@@ -104,6 +116,27 @@ export default function HugPage({ setCurrentPage }) {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center relative overflow-hidden pb-10">
+
+      {/* Confetti Engine (Rendered directly in Framer Motion) */}
+      <div className="fixed inset-0 pointer-events-none flex items-center justify-center z-50">
+        <AnimatePresence>
+          {confetti.map((c) => (
+            <motion.div
+              key={c.id}
+              initial={{ x: c.originX, y: c.originY, scale: 0, opacity: 1 }}
+              animate={{
+                x: c.originX + c.targetX,
+                y: [c.originY, c.originY - c.targetY, c.originY + 800], // Shoot up, then fall down
+                rotate: c.rotation,
+                scale: c.scale,
+                opacity: [0, 1, 1, 0]
+              }}
+              transition={{ duration: c.duration, delay: c.delay, ease: "easeInOut" }}
+              className={`absolute w-3 h-3 ${c.color} ${c.shape} shadow-sm`}
+            />
+          ))}
+        </AnimatePresence>
+      </div>
 
       {/* Cute GIF Section */}
       <motion.div
@@ -175,17 +208,10 @@ export default function HugPage({ setCurrentPage }) {
           transition={{ delay: 0.5, duration: 0.8 }}
           disabled={showHearts}
         >
-          {/* Sparkle effect */}
           <motion.div
             className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-            animate={{
-              x: ["-100%", "100%"],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Number.POSITIVE_INFINITY,
-              repeatDelay: 4,
-            }}
+            animate={{ x: ["-100%", "100%"] }}
+            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatDelay: 4 }}
           />
           <Heart size={24} className="text-pink-200 relative z-10" />
           <span className="relative z-10">Yes</span>
@@ -240,20 +266,14 @@ export default function HugPage({ setCurrentPage }) {
         )}
       </AnimatePresence>
 
-      {/* Flying Hearts Animation when she finally says Yes to Friendship */}
+      {/* Flying Hearts Animation */}
       <AnimatePresence>
         <div className="fixed inset-0 z-40 pointer-events-none w-full h-full overflow-hidden">
           {showHearts &&
             hearts.map((heart) => (
               <motion.div
                 key={heart.id}
-                initial={{
-                  x: heart.x,
-                  y: heart.y,
-                  opacity: 0,
-                  scale: 0,
-                  rotate: heart.rotation,
-                }}
+                initial={{ x: heart.x, y: heart.y, opacity: 0, scale: 0, rotate: heart.rotation }}
                 animate={{
                   y: -200,
                   x: heart.x,
@@ -261,19 +281,13 @@ export default function HugPage({ setCurrentPage }) {
                   scale: [0, 1.4, 1.2, 0.9, 0.4],
                   rotate: heart.rotation + 720,
                 }}
-                transition={{
-                  duration: 4,
-                  delay: heart.delay,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
+                transition={{ duration: 4, delay: heart.delay, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="absolute pointer-events-none"
               >
                 <Heart
                   className={`${heart.color} fill-current drop-shadow-lg`}
                   size={heart.size}
-                  style={{
-                    filter: "drop-shadow(0 0 8px rgba(236, 72, 153, 0.6))",
-                  }}
+                  style={{ filter: "drop-shadow(0 0 8px rgba(236, 72, 153, 0.6))" }}
                 />
               </motion.div>
             ))}
