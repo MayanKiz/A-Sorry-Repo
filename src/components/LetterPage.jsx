@@ -192,16 +192,15 @@ export default function LetterPage({ setCurrentPage }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center cursor-pointer z-50"
+            className="fixed bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center cursor-pointer z-[100]"
             onClick={scrollToBottom}
           >
-            <span className="text-pink-300 text-sm mb-2 font-medium tracking-widest uppercase">Scroll</span>
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-              className="bg-pink-500/20 p-2 rounded-full border border-pink-400/30 backdrop-blur-sm"
+              className="rounded-full border-2 border-white/80 bg-gradient-to-br from-pink-500 via-fuchsia-500 to-amber-400 p-3 shadow-[0_0_12px_rgba(244,63,94,0.9),0_0_28px_rgba(251,191,36,0.65)]"
             >
-              <ChevronDown className="text-pink-300 w-6 h-6" />
+              <ChevronDown className="h-7 w-7 text-white drop-shadow-[0_2px_3px_rgba(88,28,135,0.8)]" strokeWidth={3} />
             </motion.div>
           </motion.div>
         )}
