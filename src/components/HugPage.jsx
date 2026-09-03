@@ -15,12 +15,32 @@ export default function HugPage({ setCurrentPage }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef(null)
 
+  // Function to smoothly resume background music
+  const resumeBackgroundMusic = () => {
+    document.querySelectorAll('audio').forEach(audio => {
+      if (audio !== audioRef.current) {
+        audio.play().catch(err => console.log("Bg audio play error:", err))
+      }
+    })
+  }
+
+  // Function to pause background music
+  const pauseBackgroundMusic = () => {
+    document.querySelectorAll('audio').forEach(audio => {
+      if (audio !== audioRef.current) {
+        audio.pause()
+      }
+    })
+  }
+
   const toggleAudio = () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause()
         setIsPlaying(false)
+        resumeBackgroundMusic() // Resume bg music when paused manually
       } else {
+        pauseBackgroundMusic() // Pause bg music when played manually
         audioRef.current.play()
         setIsPlaying(true)
       }
@@ -123,14 +143,9 @@ export default function HugPage({ setCurrentPage }) {
 
     // AUDIO MAGIC: Autoplay logic triggered by the user's click
     if (showFriendQuestion) {
-      // 1. Pause any background music currently playing
-      document.querySelectorAll('audio').forEach(audio => {
-        if (audio !== audioRef.current) {
-          audio.pause();
-        }
-      });
+      pauseBackgroundMusic(); // Pause all bg music
 
-      // 2. Play the funny voice note instantly
+      // Play the funny voice note instantly
       if (audioRef.current) {
         audioRef.current.currentTime = 0;
         audioRef.current.play().then(() => {
@@ -140,11 +155,13 @@ export default function HugPage({ setCurrentPage }) {
     }
   }
 
+  // When closing the modal, ensure music resumes and voice note stops
   const closeModal = () => {
     setShowForgiveness(false)
     if (audioRef.current) {
       audioRef.current.pause()
       setIsPlaying(false)
+      resumeBackgroundMusic() // Resume bg music!
     }
   }
 
@@ -155,7 +172,10 @@ export default function HugPage({ setCurrentPage }) {
       <audio 
         ref={audioRef} 
         src="/audio/10005.mp3" 
-        onEnded={() => setIsPlaying(false)}
+        onEnded={() => {
+          setIsPlaying(false)
+          resumeBackgroundMusic() // Resume bg music when audio naturally finishes!
+        }}
       />
 
       {/* Confetti Engine */}
@@ -253,7 +273,6 @@ export default function HugPage({ setCurrentPage }) {
           />
           <Heart size={24} className="text-pink-200 relative z-10" />
           
-          {/* Dynamic Text: Okay Done -> okay */}
           <span className="relative z-10 font-medium tracking-wide">
             {showFriendQuestion ? "okay" : "Okay Done"}
           </span>
@@ -275,7 +294,7 @@ export default function HugPage({ setCurrentPage }) {
         </motion.button>
       </div>
 
-      {/* "No" Modal Pop-up with Re-added Audio Player */}
+      {/* "No" Modal Pop-up */}
       <AnimatePresence>
         {showForgiveness && (
           <motion.div
