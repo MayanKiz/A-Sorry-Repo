@@ -154,7 +154,7 @@ export default function HugPage({ setCurrentPage }) {
       {/* Hidden Audio Element */}
       <audio 
         ref={audioRef} 
-        src="/audios/10005.mp3" 
+        src="/audio/10005.mp3" 
         onEnded={() => setIsPlaying(false)}
       />
 
@@ -316,7 +316,7 @@ export default function HugPage({ setCurrentPage }) {
                 className="mt-4 w-full rounded-full border border-pink-300/40 bg-pink-500/20 px-8 py-3 text-lg text-pink-100 transition hover:bg-pink-500/35"
                 whileTap={{ scale: 0.96 }}
               >
-                Let me think again 💗
+                Back
               </motion.button>
             </div>
           </motion.div>
