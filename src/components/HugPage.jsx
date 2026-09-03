@@ -89,13 +89,13 @@ export default function HugPage({ setCurrentPage }) {
   }
 
   const handleForgiveYes = () => {
-    sendAnswer("Forgiveness answer: Yes")
+    sendAnswer("Forgiveness answer: Okay Done")
     triggerConfetti('small')
     setShowFriendQuestion(true)
   }
 
   const handleFriendYes = () => {
-    sendAnswer("Friend question answer: Yes")
+    sendAnswer("Friend question answer: okay)
     setShowHearts(true)
     triggerConfetti('massive')
 
