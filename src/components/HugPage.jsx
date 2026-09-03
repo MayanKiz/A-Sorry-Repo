@@ -15,24 +15,16 @@ export default function HugPage({ setCurrentPage }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef(null)
 
-  // Cleanup audio when component unmounts or modal closes
-  useEffect(() => {
-    if (!showForgiveness && isPlaying) {
-      audioRef.current?.pause()
-      setIsPlaying(false)
-    }
-    return () => {
-      audioRef.current?.pause()
-    }
-  }, [showForgiveness, isPlaying])
-
   const toggleAudio = () => {
-    if (isPlaying) {
-      audioRef.current?.pause()
-    } else {
-      audioRef.current?.play()
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause()
+        setIsPlaying(false)
+      } else {
+        audioRef.current.play()
+        setIsPlaying(true)
+      }
     }
-    setIsPlaying(!isPlaying)
   }
 
   // Send answer to Telegram
@@ -129,29 +121,37 @@ export default function HugPage({ setCurrentPage }) {
     sendAnswer(`Answer: ${answer}`)
     setShowForgiveness(true)
 
-    // YAHAN HAI MAGIC: Stop all bg music & Autoplay Voice Note
+    // AUDIO MAGIC: Autoplay logic triggered by the user's click
     if (showFriendQuestion) {
-      // 1. Find all audio elements on the website and pause them
+      // 1. Pause any background music currently playing
       document.querySelectorAll('audio').forEach(audio => {
         if (audio !== audioRef.current) {
           audio.pause();
         }
       });
 
-      // 2. Play the funny voice note immediately
+      // 2. Play the funny voice note instantly
       if (audioRef.current) {
-        audioRef.current.currentTime = 0; // Start from beginning
+        audioRef.current.currentTime = 0;
         audioRef.current.play().then(() => {
           setIsPlaying(true);
-        }).catch(err => console.log("Autoplay blocked by browser", err));
+        }).catch(err => console.log("Audio play error:", err));
       }
+    }
+  }
+
+  const closeModal = () => {
+    setShowForgiveness(false)
+    if (audioRef.current) {
+      audioRef.current.pause()
+      setIsPlaying(false)
     }
   }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center relative overflow-hidden pb-10">
       
-      {/* Hidden Audio Element */}
+      {/* Hidden Audio Element - Link matched with your screenshot */}
       <audio 
         ref={audioRef} 
         src="/audio/10005.mp3" 
@@ -252,7 +252,12 @@ export default function HugPage({ setCurrentPage }) {
             transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatDelay: 4 }}
           />
           <Heart size={24} className="text-pink-200 relative z-10" />
-          <span className="relative z-10">Yes</span>
+          
+          {/* Dynamic Text: Okay Done -> okay */}
+          <span className="relative z-10 font-medium tracking-wide">
+            {showFriendQuestion ? "okay" : "Okay Done"}
+          </span>
+
         </motion.button>
 
         <motion.button
@@ -270,7 +275,7 @@ export default function HugPage({ setCurrentPage }) {
         </motion.button>
       </div>
 
-      {/* "No" Modal Pop-up */}
+      {/* "No" Modal Pop-up with Re-added Audio Player */}
       <AnimatePresence>
         {showForgiveness && (
           <motion.div
@@ -289,10 +294,9 @@ export default function HugPage({ setCurrentPage }) {
                 {showFriendQuestion ? "Arreyy..!? 🥺" : "I hope you forgive me... 🥺💔"}
               </p>
               
-              {/* NEW AUDIO PLAYER WITH AUTOPLAY LOGIC */}
               {showFriendQuestion ? (
                 <div className="my-6 p-4 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex flex-col items-center justify-center gap-3">
-                  <p className="text-sm text-pink-300 font-medium tracking-wide">😶</p>
+                  <p className="text-sm text-pink-300 font-medium tracking-wide">Warning: Gusse wali didi 🚨😂</p>
                   <motion.button 
                     onClick={toggleAudio}
                     whileHover={{ scale: 1.05 }}
@@ -307,16 +311,18 @@ export default function HugPage({ setCurrentPage }) {
                   </motion.button>
                 </div>
               ) : (
-                <p className="mt-3 mb-6 text-lg text-purple-200">Please give me one chance 🙏</p>
+                <p className="mt-3 mb-6 text-lg text-purple-200">
+                  Please give me one chance 🙏
+                </p>
               )}
 
               <motion.button
                 type="button"
-                onClick={() => setShowForgiveness(false)}
+                onClick={closeModal}
                 className="mt-4 w-full rounded-full border border-pink-300/40 bg-pink-500/20 px-8 py-3 text-lg text-pink-100 transition hover:bg-pink-500/35"
                 whileTap={{ scale: 0.96 }}
               >
-                Back
+                Back 💗
               </motion.button>
             </div>
           </motion.div>
