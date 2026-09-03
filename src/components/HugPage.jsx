@@ -24,7 +24,7 @@ export default function HugPage({ setCurrentPage }) {
     return () => {
       audioRef.current?.pause()
     }
-  }, [showForgiveness])
+  }, [showForgiveness, isPlaying])
 
   const toggleAudio = () => {
     if (isPlaying) {
@@ -35,7 +35,7 @@ export default function HugPage({ setCurrentPage }) {
     setIsPlaying(!isPlaying)
   }
 
-  // Send answer to Telegram (Silently in background)
+  // Send answer to Telegram
   const sendAnswer = (answer) => {
     fetch("/api/telegram", {
       method: "POST",
@@ -128,6 +128,24 @@ export default function HugPage({ setCurrentPage }) {
     const answer = showFriendQuestion ? "No (Friendship)" : "No (Forgiveness)"
     sendAnswer(`Answer: ${answer}`)
     setShowForgiveness(true)
+
+    // YAHAN HAI MAGIC: Stop all bg music & Autoplay Voice Note
+    if (showFriendQuestion) {
+      // 1. Find all audio elements on the website and pause them
+      document.querySelectorAll('audio').forEach(audio => {
+        if (audio !== audioRef.current) {
+          audio.pause();
+        }
+      });
+
+      // 2. Play the funny voice note immediately
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0; // Start from beginning
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(err => console.log("Autoplay blocked by browser", err));
+      }
+    }
   }
 
   return (
@@ -252,7 +270,7 @@ export default function HugPage({ setCurrentPage }) {
         </motion.button>
       </div>
 
-      {/* "No" Modal Pop-up with Audio Player logic */}
+      {/* "No" Modal Pop-up */}
       <AnimatePresence>
         {showForgiveness && (
           <motion.div
@@ -268,16 +286,13 @@ export default function HugPage({ setCurrentPage }) {
                 className="mx-auto mb-5 w-40 rounded-2xl"
               />
               <p className="text-2xl leading-relaxed text-pink-200 font-medium">
-                {showFriendQuestion ? "I still need you as my friend... 🥺💔" : "I hope you forgive me... 🥺💔"}
-              </p>
-              <p className="mt-3 mb-6 text-lg text-purple-200">
-                {showFriendQuestion ? "Please don't leave me alone 🙏" : "Please give me one chance 🙏"}
+                {showFriendQuestion ? "Aise kaise NO bol diya? 🥺💔" : "I hope you forgive me... 🥺💔"}
               </p>
               
-              {/* NEW AUDIO PLAYER (Only shows on Friendship "No") */}
-              {showFriendQuestion && (
+              {/* NEW AUDIO PLAYER WITH AUTOPLAY LOGIC */}
+              {showFriendQuestion ? (
                 <div className="my-6 p-4 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex flex-col items-center justify-center gap-3">
-                  <p className="text-sm text-pink-300 font-medium tracking-wide">Listen to me please... 🎧</p>
+                  <p className="text-sm text-pink-300 font-medium tracking-wide">Suno isko zara 👇😂</p>
                   <motion.button 
                     onClick={toggleAudio}
                     whileHover={{ scale: 1.05 }}
@@ -291,6 +306,8 @@ export default function HugPage({ setCurrentPage }) {
                     )}
                   </motion.button>
                 </div>
+              ) : (
+                <p className="mt-3 mb-6 text-lg text-purple-200">Please give me one chance 🙏</p>
               )}
 
               <motion.button
