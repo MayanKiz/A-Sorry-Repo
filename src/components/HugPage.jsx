@@ -310,12 +310,12 @@ export default function HugPage({ setCurrentPage }) {
                 className="mx-auto mb-5 w-40 rounded-2xl"
               />
               <p className="text-2xl leading-relaxed text-pink-200 font-medium">
-                {showFriendQuestion ? "Arreyy..!? 🥺" : "I hope you forgive me... 🥺💔"}
+                {showFriendQuestion ? "Arreyy..!? 🥺" : "I hope you forgive me... 🥺"}
               </p>
               
               {showFriendQuestion ? (
                 <div className="my-6 p-4 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex flex-col items-center justify-center gap-3">
-                  <p className="text-sm text-pink-300 font-medium tracking-wide">Warning: Gusse wali didi 🚨😂</p>
+                  <p className="text-sm text-pink-300 font-medium tracking-wide">Man Bhi jaooo Naaa 🥹</p>
                   <motion.button 
                     onClick={toggleAudio}
                     whileHover={{ scale: 1.05 }}
@@ -341,7 +341,7 @@ export default function HugPage({ setCurrentPage }) {
                 className="mt-4 w-full rounded-full border border-pink-300/40 bg-pink-500/20 px-8 py-3 text-lg text-pink-100 transition hover:bg-pink-500/35"
                 whileTap={{ scale: 0.96 }}
               >
-                Back 💗
+                Back 
               </motion.button>
             </div>
           </motion.div>
