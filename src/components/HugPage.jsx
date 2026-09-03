@@ -286,13 +286,13 @@ export default function HugPage({ setCurrentPage }) {
                 className="mx-auto mb-5 w-40 rounded-2xl"
               />
               <p className="text-2xl leading-relaxed text-pink-200 font-medium">
-                {showFriendQuestion ? "Aise kaise NO bol diya? 🥺💔" : "I hope you forgive me... 🥺💔"}
+                {showFriendQuestion ? "Arreyy..!? 🥺" : "I hope you forgive me... 🥺💔"}
               </p>
               
               {/* NEW AUDIO PLAYER WITH AUTOPLAY LOGIC */}
               {showFriendQuestion ? (
                 <div className="my-6 p-4 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex flex-col items-center justify-center gap-3">
-                  <p className="text-sm text-pink-300 font-medium tracking-wide">Suno isko zara 👇😂</p>
+                  <p className="text-sm text-pink-300 font-medium tracking-wide">😶</p>
                   <motion.button 
                     onClick={toggleAudio}
                     whileHover={{ scale: 1.05 }}
