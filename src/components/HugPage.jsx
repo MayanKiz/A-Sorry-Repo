@@ -1,8 +1,8 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react"
-import { Heart } from "lucide-react"
+import { useState, useRef, useEffect } from "react"
+import { Heart, Play, Pause } from "lucide-react"
 
 export default function HugPage({ setCurrentPage }) {
   const [hearts, setHearts] = useState([])
@@ -10,6 +10,30 @@ export default function HugPage({ setCurrentPage }) {
   const [showHearts, setShowHearts] = useState(false)
   const [showForgiveness, setShowForgiveness] = useState(false)
   const [showFriendQuestion, setShowFriendQuestion] = useState(false)
+  
+  // Audio Player States
+  const [isPlaying, setIsPlaying] = useState(false)
+  const audioRef = useRef(null)
+
+  // Cleanup audio when component unmounts or modal closes
+  useEffect(() => {
+    if (!showForgiveness && isPlaying) {
+      audioRef.current?.pause()
+      setIsPlaying(false)
+    }
+    return () => {
+      audioRef.current?.pause()
+    }
+  }, [showForgiveness])
+
+  const toggleAudio = () => {
+    if (isPlaying) {
+      audioRef.current?.pause()
+    } else {
+      audioRef.current?.play()
+    }
+    setIsPlaying(!isPlaying)
+  }
 
   // Send answer to Telegram (Silently in background)
   const sendAnswer = (answer) => {
@@ -20,14 +44,13 @@ export default function HugPage({ setCurrentPage }) {
     }).catch(() => {})
   }
 
-  // Custom Confetti Generator (No npm install required!)
+  // Custom Confetti Generator
   const triggerConfetti = (type) => {
     const newConfetti = []
     const colors = ['bg-pink-400', 'bg-purple-400', 'bg-white', 'bg-red-400', 'bg-rose-300']
     const screenW = typeof window !== 'undefined' ? window.innerWidth : 400
 
     if (type === 'small') {
-      // Step 1: Cute center burst for Forgiveness
       for (let i = 0; i < 40; i++) {
         newConfetti.push({
           id: `small-${Date.now()}-${i}`,
@@ -44,7 +67,6 @@ export default function HugPage({ setCurrentPage }) {
         })
       }
     } else {
-      // Step 2: Massive Side Cannons for Friendship
       for (let i = 0; i < 80; i++) {
         const isLeft = i % 2 === 0
         newConfetti.push({
@@ -58,29 +80,25 @@ export default function HugPage({ setCurrentPage }) {
           color: colors[Math.floor(Math.random() * colors.length)],
           shape: Math.random() > 0.5 ? 'rounded-full' : 'rounded-sm',
           duration: 3 + Math.random() * 2,
-          delay: Math.random() * 1.5 // Staggered for continuous effect
+          delay: Math.random() * 1.5
         })
       }
     }
     setConfetti(newConfetti)
-    // Clear confetti after animation ends
     setTimeout(() => setConfetti([]), type === 'small' ? 3000 : 5000)
   }
 
-  // Step 1: When she clicks Yes for Forgiveness
   const handleForgiveYes = () => {
     sendAnswer("Forgiveness answer: Yes")
-    triggerConfetti('small') // Fires small confetti
-    setShowFriendQuestion(true) // Moves to Step 2
+    triggerConfetti('small')
+    setShowFriendQuestion(true)
   }
 
-  // Step 2: When she clicks Yes for Friendship
   const handleFriendYes = () => {
     sendAnswer("Friend question answer: Yes")
     setShowHearts(true)
-    triggerConfetti('massive') // Fires massive side cannons
+    triggerConfetti('massive')
 
-    // Generate flying hearts
     const newHearts = []
     const screenWidth = typeof window !== "undefined" ? window.innerWidth : 800
     const screenHeight = typeof window !== "undefined" ? window.innerHeight : 600
@@ -101,13 +119,11 @@ export default function HugPage({ setCurrentPage }) {
     }
     setHearts(newHearts)
 
-    // Move to next page after animation
     setTimeout(() => {
       setCurrentPage("gift")
     }, 4500)
   }
 
-  // Handles "No" clicks for both steps
   const handleNoClick = () => {
     const answer = showFriendQuestion ? "No (Friendship)" : "No (Forgiveness)"
     sendAnswer(`Answer: ${answer}`)
@@ -116,8 +132,15 @@ export default function HugPage({ setCurrentPage }) {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center relative overflow-hidden pb-10">
+      
+      {/* Hidden Audio Element */}
+      <audio 
+        ref={audioRef} 
+        src="/audios/10005.mp3" 
+        onEnded={() => setIsPlaying(false)}
+      />
 
-      {/* Confetti Engine (Rendered directly in Framer Motion) */}
+      {/* Confetti Engine */}
       <div className="fixed inset-0 pointer-events-none flex items-center justify-center z-50">
         <AnimatePresence>
           {confetti.map((c) => (
@@ -126,7 +149,7 @@ export default function HugPage({ setCurrentPage }) {
               initial={{ x: c.originX, y: c.originY, scale: 0, opacity: 1 }}
               animate={{
                 x: c.originX + c.targetX,
-                y: [c.originY, c.originY - c.targetY, c.originY + 800], // Shoot up, then fall down
+                y: [c.originY, c.originY - c.targetY, c.originY + 800],
                 rotate: c.rotation,
                 scale: c.scale,
                 opacity: [0, 1, 1, 0]
@@ -138,7 +161,6 @@ export default function HugPage({ setCurrentPage }) {
         </AnimatePresence>
       </div>
 
-      {/* Cute GIF Section */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -153,7 +175,6 @@ export default function HugPage({ setCurrentPage }) {
         />
       </motion.div>
 
-      {/* Logical Text Section - Changes smoothly based on Step */}
       <div className="h-32 flex items-center justify-center max-w-md">
         <AnimatePresence mode="wait">
           {!showFriendQuestion ? (
@@ -192,7 +213,6 @@ export default function HugPage({ setCurrentPage }) {
         </AnimatePresence>
       </div>
 
-      {/* Buttons Section */}
       <div className="flex flex-col items-center mt-6 z-20 relative">
         <motion.button
           onClick={() => (showFriendQuestion ? handleFriendYes() : handleForgiveYes())}
@@ -232,7 +252,7 @@ export default function HugPage({ setCurrentPage }) {
         </motion.button>
       </div>
 
-      {/* "No" Modal Pop-up */}
+      {/* "No" Modal Pop-up with Audio Player logic */}
       <AnimatePresence>
         {showForgiveness && (
           <motion.div
@@ -250,13 +270,33 @@ export default function HugPage({ setCurrentPage }) {
               <p className="text-2xl leading-relaxed text-pink-200 font-medium">
                 {showFriendQuestion ? "I still need you as my friend... 🥺💔" : "I hope you forgive me... 🥺💔"}
               </p>
-              <p className="mt-3 text-lg text-purple-200">
+              <p className="mt-3 mb-6 text-lg text-purple-200">
                 {showFriendQuestion ? "Please don't leave me alone 🙏" : "Please give me one chance 🙏"}
               </p>
+              
+              {/* NEW AUDIO PLAYER (Only shows on Friendship "No") */}
+              {showFriendQuestion && (
+                <div className="my-6 p-4 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex flex-col items-center justify-center gap-3">
+                  <p className="text-sm text-pink-300 font-medium tracking-wide">Listen to me please... 🎧</p>
+                  <motion.button 
+                    onClick={toggleAudio}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-14 h-14 bg-gradient-to-tr from-pink-500 to-purple-500 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(236,72,153,0.4)]"
+                  >
+                    {isPlaying ? (
+                      <Pause size={24} className="text-white fill-current" />
+                    ) : (
+                      <Play size={24} className="text-white fill-current ml-1" />
+                    )}
+                  </motion.button>
+                </div>
+              )}
+
               <motion.button
                 type="button"
                 onClick={() => setShowForgiveness(false)}
-                className="mt-7 rounded-full border border-pink-300/40 bg-pink-500/20 px-8 py-3 text-lg text-pink-100 transition hover:bg-pink-500/35"
+                className="mt-4 w-full rounded-full border border-pink-300/40 bg-pink-500/20 px-8 py-3 text-lg text-pink-100 transition hover:bg-pink-500/35"
                 whileTap={{ scale: 0.96 }}
               >
                 Let me think again 💗
@@ -266,7 +306,6 @@ export default function HugPage({ setCurrentPage }) {
         )}
       </AnimatePresence>
 
-      {/* Flying Hearts Animation */}
       <AnimatePresence>
         <div className="fixed inset-0 z-40 pointer-events-none w-full h-full overflow-hidden">
           {showHearts &&
