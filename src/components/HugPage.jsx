@@ -95,7 +95,7 @@ export default function HugPage({ setCurrentPage }) {
   }
 
   const handleFriendYes = () => {
-    sendAnswer("Friend question answer: okay)
+    sendAnswer("Friend question answer: okay")
     setShowHearts(true)
     triggerConfetti('massive')
 
