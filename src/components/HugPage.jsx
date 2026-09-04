@@ -244,7 +244,7 @@ export default function HugPage({ setCurrentPage }) {
                 Thank you for forgiving me... 🥺💗
               </p>
               <p className="text-2xl text-pink-200 leading-relaxed font-medium">
-                I need you as a friend... will you stay? 🤍
+                Will you be my friend? 🤍
               </p>
             </motion.div>
           )}
@@ -274,7 +274,7 @@ export default function HugPage({ setCurrentPage }) {
           <Heart size={24} className="text-pink-200 relative z-10" />
           
           <span className="relative z-10 font-medium tracking-wide">
-            {showFriendQuestion ? "okay" : "Okay Done"}
+            {showFriendQuestion ? "Okii" : "Hmm I forgive you..."}
           </span>
 
         </motion.button>
@@ -290,7 +290,7 @@ export default function HugPage({ setCurrentPage }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.8 }}
         >
-          No 🙈
+          Nope not this time
         </motion.button>
       </div>
 
