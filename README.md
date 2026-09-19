@@ -44,3 +44,16 @@ Use the project-specific entry point when the repository does not define an `npm
 ## Project Status
 
 This repository is maintained as a professional development project.
+
+## Contact and Collaboration
+
+For questions, collaboration, technical discussion, or project-related inquiries, use any of the following professional contact channels:
+
+- **Instagram:** [@rao.mynkk](https://www.instagram.com/rao.mynkk/)
+- **Email:** [rao.mynkk@gmail.com](mailto:rao.mynkk@gmail.com)
+- **WhatsApp:** [+24106603434](https://wa.me/24106603434)
+- **LinkedIn:** [Mayank Yadav](https://www.linkedin.com/in/mayank-yadav-2803202a5?utm_source=share_via&utm_content=profile&utm_medium=member_android)
+
+Questions and collaboration requests are welcome. Please use the channel that best matches the nature of your inquiry.
+
+> **Project watermark:** Mayank Yadav · @rao.mynkk
