@@ -1,8 +1,8 @@
 import "./globals.css"
 
 export const metadata = {
-  title: "Project Interface",
-  description: "Sample Message",
+  title: "Interactive Friendship Story",
+  description: "A guided interactive story for presenting a friendship message through multiple pages, animations, and a final appreciation flow.",
 }
 
 export default function RootLayout({ children }) {
