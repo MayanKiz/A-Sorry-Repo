@@ -207,7 +207,7 @@ export default function GiftPage({ setCurrentPage }) {
                       transition={{ duration: 0.8, delay: 0.6 }}
                       className="text-lg text-purple-200 leading-relaxed"
                     >
-                      Sample Message
+                      Sample Text
                     </motion.p>
                     <motion.p
                       initial={{ opacity: 0, y: 15 }}

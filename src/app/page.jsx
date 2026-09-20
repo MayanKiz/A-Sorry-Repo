@@ -20,7 +20,7 @@ export default function Home() {
   const pages = {
     opening: OpeningPage,
     diary: DiaryPage,
-    Sample Message
+    apology: ApologyPage,
     letter: LetterPage,
     hug: HugPage,
     gift: GiftPage,

@@ -1,7 +1,7 @@
 import "./globals.css"
 
 export const metadata = {
-  Sample Message
+  title: "Project Interface",
   description: "Sample Message",
 }
 

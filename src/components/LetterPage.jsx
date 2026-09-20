@@ -161,7 +161,7 @@ export default function LetterPage({ setCurrentPage }) {
             transition={{ duration: 0.8, delay: 1.5 }}
             className="text-xl text-purple-200 leading-relaxed"
           >
-            Sample Message
+            Sample Text
           </motion.p>
 
           <motion.p

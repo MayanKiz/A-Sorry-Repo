@@ -142,7 +142,7 @@ export default function LastPage({ setMusicPlaying }) {
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
         >
-          Sample Message
+          Sample Text
         </motion.p>
 
         <motion.button
