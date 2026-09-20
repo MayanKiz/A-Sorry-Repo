@@ -141,9 +141,7 @@ export default function LastPage({ setMusicPlaying }) {
           className="text-pink-300/70 text-lg mb-4 italic"
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
-        >
-          Sample Text
-        </motion.p>
+        >A story written for you</motion.p>
 
         <motion.button
           onClick={handleWhatsApp}

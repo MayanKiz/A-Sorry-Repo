@@ -206,9 +206,7 @@ export default function GiftPage({ setCurrentPage }) {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.6 }}
                       className="text-lg text-purple-200 leading-relaxed"
-                    >
-                      Sample Text
-                    </motion.p>
+                    >A story written for you</motion.p>
                     <motion.p
                       initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: 1, y: 0 }}

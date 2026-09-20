@@ -160,9 +160,7 @@ export default function LetterPage({ setCurrentPage }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.5 }}
             className="text-xl text-purple-200 leading-relaxed"
-          >
-            Sample Text
-          </motion.p>
+          >A story written for you</motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 15 }}
@@ -170,7 +168,7 @@ export default function LetterPage({ setCurrentPage }) {
             transition={{ duration: 0.8, delay: 1.8 }}
             className="text-lg text-pink-200 leading-relaxed max-w-lg mx-auto"
           >
-            I know words can't undo what I did... but I need you to know that you mean everything to me.<br></br>Sample Message<br></br>I promise to do better... to be better.✨
+            I know words can't undo what I did... but I need you to know that you mean everything to me.<br></br>A story written for you<br></br>I promise to do better... to be better.✨
           </motion.p>
           
           <motion.p
