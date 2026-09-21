@@ -1,55 +1,108 @@
-# Interactive Friendship Story
+ # I'm Sorry
 
-## Description
+An interactive apology website built with Next.js, React, Framer Motion, and Tailwind CSS. It guides visitors through a small animated story with diary entries, an apology letter, interactive forgiveness questions, local music, and a gift reveal.
 
-A guided interactive story for presenting a friendship message through multiple pages, animations, and a final appreciation flow.
+## Features
 
-## Quick Start
-
-Run `npm install`, then `npm run dev` and open the local Next.js URL.
+- Animated multi-step apology experience
+- Starry background and Framer Motion page transitions
+- Local GIF, image, and audio assets from `public/`
+- Background music toggle
+- Interactive forgiveness and friendship questions
+- Optional Telegram notifications for submitted answers
+- Responsive layout for desktop and mobile screens
 
 ## Tech Stack
 
-Next.js, React, Tailwind CSS
+- Next.js 16 with the App Router
+- React 19
+- Framer Motion
+- Lucide React
+- Tailwind CSS 4
 
-## Key Features
-
-- Opening, diary, apology, letter, hug, gift, and final pages.
-- page-state navigation.
-- animated transitions.
-- responsive layout.
-
-## Project Structure
-
-The primary entry point is `src/app/page.jsx`. Supporting components, services, styles, and configuration files remain organized next to the relevant application layer.
-
-## Setup and Installation
+## Getting Started
 
 ### Prerequisites
 
-Install the runtime required by the project. JavaScript projects require Node.js and npm. Python projects require Python 3. External integrations such as Supabase, Firebase, AI providers, Telegram, or browser camera access must be configured through environment variables or explicit local permissions.
+- Node.js 20 or newer
+- npm
 
-### Run Locally
+### Installation
 
-```text
+```bash
 npm install
+```
 
+### Environment variables
+
+Telegram notifications are optional. To enable them, create a `.env.local` file in the project root:
+
+```env
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+TELEGRAM_CHAT_ID=your_telegram_chat_id
+```
+
+Keep these values private. They are read only by the server-side API route at `/api/telegram`.
+
+### Run locally
+
+```bash
 npm run dev
 ```
 
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Available Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Serve the production build |
+| `npm run lint` | Run the configured lint command |
+
+## Project Structure
+
+```text
+src/
+	app/
+		page.jsx              # Main page state and experience flow
+		layout.js             # Root layout and metadata
+		globals.css           # Global styles
+		api/telegram/route.js # Optional Telegram notification endpoint
+	components/
+		OpeningPage.jsx
+		DiaryPage.jsx
+		ApologyPage.jsx
+		LetterPage.jsx
+		HugPage.jsx
+		GiftPage.jsx
+		last.jsx
+		MusicPlayer.jsx
+		StarryBackground.jsx
+public/
+	audio/                  # Background music and voice note
+	gifs/                   # Animated visual assets
+	images/                 # Image assets
+```
+
+The main experience is controlled by `src/app/page.jsx`, which switches between the individual page components without changing the browser route.
+
 ## Deployment
 
-For a static project, publish the project directory through a static hosting provider. For a Next.js or Vite project, connect the repository to the hosting provider and use the package script defined in `package.json`. Configure all required secrets in the hosting provider dashboard; do not commit credentials to source control.
+The project can be deployed to any platform that supports Next.js, including Vercel:
 
-## Notes
+```bash
+npm run build
+npm run start
+```
 
-This repository is intended for learning, prototyping, and controlled demonstration. Review permissions, user consent, and third-party service terms before enabling camera, messaging, database, or automation features in a public deployment.
+When deploying, add `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` to the hosting provider's server-side environment variables if Telegram notifications are required.
 
-## Contact
+## Customization
 
-For questions, collaboration, or technical discussion, use the following professional channels:
+- Edit the page components in `src/components/` to change the story and interaction flow.
+- Replace files in `public/audio/`, `public/gifs/`, or `public/images/` to use different media.
+- Update the metadata in `src/app/layout.js` to change the page title and description.
 
-- Instagram: [@rao.mynkk](https://www.instagram.com/rao.mynkk/).
-- Email: [rao.mynkk@gmail.com](mailto:rao.mynkk@gmail.com).
-- WhatsApp: [+24 106 603 434](https://wa.me/24106603434).
-- LinkedIn: [Mayank Yadav](https://www.linkedin.com/in/mayank-yadav-2803202a5/).
+
