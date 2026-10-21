@@ -6,7 +6,7 @@ import { useState, useEffect } from "react"
 export default function ApologyPage({ setCurrentPage }) {
   const [currentText, setCurrentText] = useState(0)
 
-  const texts = ["I know I hurt you in previous months...", "You didn't deserve that...", "I was wrong, and I'm so sorry..."]
+  const texts = ["I am genuinely sorry, Ishan, agar maine tujhe personally hurt kiya ho...", "Mera aisa koi intention nahi tha ki main tujhe hurt karun ya tera bharosa todun...", "Even if it was a joke, I understand it may have hurt you. I am really sorry, bhai. 🤍"]
 
   useEffect(() => {
     const interval = setInterval(() => {
