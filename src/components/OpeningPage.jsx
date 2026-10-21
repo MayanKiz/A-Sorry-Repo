@@ -95,7 +95,7 @@ export default function OpeningPage({ setCurrentPage, setMusicPlaying, setShowMu
           transition={{ duration: 0.8, delay: 1.6 }}
           className="text-purple-200 text-xl leading-relaxed"
         >
-          I'm holding something heavy…<br></br>not in hands but in heart in my mind<br></br>
+          Dimag meh bahut kuch chal Rha <br></br>not in hands but in heart in my mind<br></br>
         </motion.p>
       </motion.div>
 
