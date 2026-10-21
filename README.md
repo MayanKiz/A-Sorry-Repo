@@ -1,4 +1,4 @@
- # I'm Sorry
+.. # I'm Sorry
 
 An interactive apology website built with Next.js, React, Framer Motion, and Tailwind CSS. It guides visitors through a small animated story with diary entries, an apology letter, interactive forgiveness questions, local music, and a gift reveal.
 
