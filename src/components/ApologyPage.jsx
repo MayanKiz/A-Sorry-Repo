@@ -1,22 +1,19 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 export default function ApologyPage({ setCurrentPage }) {
   const [currentText, setCurrentText] = useState(0)
 
   const texts = ["I am genuinely sorry, Ishan, agar maine tujhe personally hurt kiya ho...", "Mera aisa koi intention nahi tha ki main tujhe hurt karun ya tera bharosa todun...", "Even if it was a joke, I understand it may have hurt you. I am really sorry, bhai. 🤍"]
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentText((prev) => (prev + 1) % texts.length)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [])
-
   const handleContinue = () => {
-    setCurrentPage("letter")
+    if (currentText < texts.length - 1) {
+      setCurrentText((prev) => prev + 1)
+    } else {
+      setCurrentPage("letter")
+    }
   }
 
   return (
