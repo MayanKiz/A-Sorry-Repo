@@ -54,7 +54,7 @@ export default function LetterPage({ setCurrentPage }) {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="text-2xl text-pink-300 mb-8 mt-10 md:mt-0"
         >
-          I've been staring at these all night…🌙
+          Ishan, kuch dil se kehna tha…🌙
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
@@ -161,7 +161,7 @@ export default function LetterPage({ setCurrentPage }) {
             transition={{ duration: 0.8, delay: 1.5 }}
             className="text-xl text-purple-200 leading-relaxed"
           >
-            You're so beautiful and good... but I still hurt you… I'm so sorry.💔
+            Ishan, you're a genuinely good friend, and I'm sorry if my words or jokes hurt you. 💔
           </motion.p>
 
           <motion.p
@@ -170,7 +170,7 @@ export default function LetterPage({ setCurrentPage }) {
             transition={{ duration: 0.8, delay: 1.8 }}
             className="text-lg text-pink-200 leading-relaxed max-w-lg mx-auto"
           >
-            I know words can't undo what I did... but I need you to know that you mean everything to me.<br></br> I've been thinking about all our each and every.. beautiful moments together... and I realize how much I've hurt the most precious person in my life....<br></br>I promise to do better... to be better.✨
+            I know words can't undo what happened, but I want you to know that our friendship matters to me. I never wanted to hurt you or break your trust. <br></br>I'm sorry if I crossed a line or made you feel bad. I understand that intentions don't erase the impact, and I'll be more careful with my words from now on. <br></br>I genuinely want to learn from this and do better. ✨
           </motion.p>
           
           <motion.p
@@ -179,7 +179,7 @@ export default function LetterPage({ setCurrentPage }) {
             transition={{ delay: 3, duration: 0.8 }}
             className="text-pink-300 text-xl mt-12 mb-10"
           >
-            Can you please forgive me…?💔
+            I'm genuinely sorry, mere pyare Kuchuu Puchuu. 🥹🤍
           </motion.p>
         </motion.div>
       </motion.div>
