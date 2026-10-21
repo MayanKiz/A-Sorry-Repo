@@ -32,7 +32,7 @@ export default function DiaryPage({ setCurrentPage }) {
           transition={{ duration: 1, delay: 0.5 }}
           className="text-center"
         >
-          <h1 className="text-3xl text-pink-300 mb-8 leading-relaxed">I am soryy</h1>
+          <h1 className="text-3xl text-pink-300 mb-8 leading-relaxed">Mere Pyare Kuchuu Puchuu 🥹💗</h1>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -53,7 +53,7 @@ export default function DiaryPage({ setCurrentPage }) {
             transition={{ duration: 0.8, delay: 1.5 }}
           >
             <p className="text-purple-200 text-lg mb-8 leading-relaxed">
-              I've been waiting for days, trying to find the right words...
+              Hey Ishan, this little message is from Himanshu. Our friendship matters to me, and I just want to make things right. Please read this with an open heart. 🫂
             </p>
 
             <motion.button
