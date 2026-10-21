@@ -53,7 +53,7 @@ export default function DiaryPage({ setCurrentPage }) {
             transition={{ duration: 0.8, delay: 1.5 }}
           >
             <p className="text-purple-200 text-lg mb-8 leading-relaxed">
-              Hey Ishan, this little message is from Your B. Our friendship matters to me, and I just want to make things right. Please read this with an open heart. 🫂
+              Hey Ishan, this little message is from Your Friend. Our friendship matters to me, and I just want to make things right. Please read this with an open heart. 🫂
             </p>
 
             <motion.button
