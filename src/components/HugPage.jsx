@@ -225,10 +225,10 @@ export default function HugPage({ setCurrentPage }) {
               className="space-y-4"
             >
               <p className="text-xl text-purple-200 leading-relaxed">
-                I don’t need anything fancy right now…
+                Ishan, bas ek baat dil se kehni hai…
               </p>
               <p className="text-2xl text-pink-200 leading-relaxed font-medium">
-                Can you please forgive me? 🥺💗
+                I just hope things can be okay between us again. 🥺💗
               </p>
             </motion.div>
           ) : (
@@ -241,10 +241,10 @@ export default function HugPage({ setCurrentPage }) {
               className="space-y-4"
             >
               <p className="text-xl text-purple-200 leading-relaxed">
-                Thank you for forgiving me... 🥺💗
+                Whatever you feel, I'll respect it, bhai. 🤍
               </p>
               <p className="text-2xl text-pink-200 leading-relaxed font-medium">
-                Will you be my friend? 🤍
+                Can we keep our friendship like it was before? 🫂
               </p>
             </motion.div>
           )}
@@ -274,7 +274,7 @@ export default function HugPage({ setCurrentPage }) {
           <Heart size={24} className="text-pink-200 relative z-10" />
           
           <span className="relative z-10 font-medium tracking-wide">
-            {showFriendQuestion ? "Okii" : "Hmm I forgive you..."}
+            {showFriendQuestion ? "Okii" : "Okay, let's be okay 🤍"}
           </span>
 
         </motion.button>
@@ -290,7 +290,7 @@ export default function HugPage({ setCurrentPage }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.8 }}
         >
-          Nope not this time
+          I need some time
         </motion.button>
       </div>
 
