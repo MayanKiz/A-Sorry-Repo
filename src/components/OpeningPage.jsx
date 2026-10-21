@@ -95,7 +95,7 @@ export default function OpeningPage({ setCurrentPage, setMusicPlaying, setShowMu
           transition={{ duration: 0.8, delay: 1.6 }}
           className="text-purple-200 text-xl leading-relaxed"
         >
-          Dimag meh bahut kuch chal Rha <br></br><br></br>
+          Dimag meh bahut kuch chal Rha <br></br>Ham S0ch rhe<br></br>
         </motion.p>
       </motion.div>
 
