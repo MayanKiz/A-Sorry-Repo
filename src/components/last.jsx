@@ -31,7 +31,7 @@ export default function LastPage({ setMusicPlaying }) {
   const handleWhatsApp = () => {
     const predefinedMessage = "Hey Mayank....."
     const encodedMessage = encodeURIComponent(predefinedMessage)
-    window.open(`https://wa.me/919451755012?text=${encodedMessage}`, "_blank")
+    window.open(`https://wa.me/?text=${encodedMessage}`, "_blank")
   }
 
   // Animation variants
